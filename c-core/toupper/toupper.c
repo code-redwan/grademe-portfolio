@@ -1,6 +1,9 @@
-int	toupper(int c)
+int	gm_toupper(int c)
 {
-	if (c >= 'a' && c <= 'z')
-		c = c - 32;
+	if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))
+	{
+		if (c >= 'a' && c <= 'z')
+			c = c - 32;
+	}
 	return (c);
 }

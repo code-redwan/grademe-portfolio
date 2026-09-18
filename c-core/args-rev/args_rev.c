@@ -12,9 +12,7 @@ void	ft_putstr(char *str)
 
 int	main(int argc, char **argv)
 {
-	int		i;
-	i = 1;
-	while (i < argc)
+	while (1 < argc)
 	{
 		ft_putstr(argv[argc - 1]);
 		argc--;

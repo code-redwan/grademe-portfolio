@@ -18,7 +18,7 @@ char *strdup(const char *src)
 
 	index = 0;
 	len = ft_strlen(src);
-	dest = malloc((sizeof(int) * len) + 1);
+	dest = malloc((sizeof(char) * len) + 1);
 	if (!dest)
 		return (NULL);
 	while (*(src + index))
@@ -29,3 +29,4 @@ char *strdup(const char *src)
 	*(dest + index) = '\0';
 	return (dest);
 }
+

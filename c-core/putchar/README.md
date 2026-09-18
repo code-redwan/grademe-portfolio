@@ -3,12 +3,13 @@
 Write one byte to standard output and return it
 
 ```c
-int putchar(int c)
+int gm_putchar(int c)
 ```
 
 **Difficulty:** 1/5
 **Allowed functions:** write
 
 Solved in practice.
+Validated 2 times. Earlier versions are in this file's git history.
 
 [Read the full exercise on Grademe](https://grademe.io/app/exercise/putchar)

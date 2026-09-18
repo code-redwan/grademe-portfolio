@@ -10,7 +10,7 @@ int		ft_strlen(const char *str)
 	return (len);
 }
 
-char *strdup(const char *src)
+char *gm_strdup(const char *src)
 {
 	int		index;
 	int		len;

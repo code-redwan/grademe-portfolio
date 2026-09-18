@@ -1,6 +1,6 @@
 #include <unistd.h>
 
-int	putchar(int c)
+int	gm_putchar(int c)
 {
 	unsigned char	byte;
 

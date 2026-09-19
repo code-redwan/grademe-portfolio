@@ -38,14 +38,12 @@ void	ft_putnbr(int nbr)
 		nbr = nbr * (-1);
 	}
 	if (nbr >=10)
-	{
 		ft_putnbr(nbr / 10);
-	}
 	c = (nbr % 10) + '0';
 	write(1, &c, 1);
 }
 
-int	main(int argc, char **argv)
+int		main(int argc, char **argv)
 {
 	int		sum;
 	int		index;

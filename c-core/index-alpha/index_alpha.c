@@ -15,9 +15,9 @@ int	main(int argc, char **argv)
 	while (argv[1][i])
 	{
 		if (argv[1][i] >= 'a' && argv[1][i] <= 'z')
-			index = (argv[1][i] - 'a') % 26;
+			index = (argv[1][i] - 'a');
 		else if (argv[1][i] >= 'A' && argv[1][i] <= 'Z')
-			index = (argv[1][i] - 'A') % 26;
+			index = (argv[1][i] - 'A');
 		else
 			write(1, &argv[1][i], 1);
 		while (0 != index)

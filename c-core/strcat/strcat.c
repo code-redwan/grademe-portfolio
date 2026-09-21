@@ -8,7 +8,7 @@ static int		ft_strlen(char *str)
 	return (len);
 }
 
-char	*strcat(char *dst, const char *src)
+char	*gm_strcat(char *dst, const char *src)
 {
 	int		len;
 	int		i;

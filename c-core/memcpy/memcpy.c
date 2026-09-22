@@ -1,4 +1,4 @@
-char	*memcpy(char *dest, char *src, int n)
+char	*gm_memcpy(char *dest, char *src, int n)
 {
 	int	i;
 

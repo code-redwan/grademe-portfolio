@@ -4,7 +4,6 @@
 #include <unistd.h>
 
 #define HEX_LOWER "0123456789abcdef"
-#define HEX_UPPER "0123456789ABCDEF"
 
 static	ssize_t gm_putchar(const char c)
 {
@@ -29,28 +28,6 @@ static	ssize_t	gm_putstr(const char *str)
 		bytes++;
 	}
 	return (bytes);
-}
-
-static	ssize_t gm_putunbr(unsigned int unbr)
-{
-    size_t	bytes;
-    ssize_t  rec;
-    char    digit;
-
-    bytes = 0;
-    digit = 0;
-    if (unbr >= 10)
-    {
-        rec = gm_putunbr(unbr / 10);
-        if (rec < 0)
-            return (-1);
-        bytes += rec;
-    }
-    digit = (unbr % 10) + '0';
-    if (gm_putchar(digit) < 0)
-        return (-1);
-    bytes += 1;
-    return (bytes);
 }
 
 static	ssize_t gm_putnbr(int nbr)
@@ -83,17 +60,17 @@ static	ssize_t gm_putnbr(int nbr)
     return (bytes);
 }
 
-static	ssize_t gm_address(uintptr_t address, int uppercase)
+static	ssize_t gm_puthex(uintptr_t address)
 {
     size_t	bytes;
     ssize_t rec;
     char*   base;
 
     bytes = 0;
-    base = uppercase ? HEX_UPPER : HEX_LOWER;
+    base = HEX_LOWER;
     if (address >= 16)
     {
-        rec = gm_address(address / 16, uppercase);
+        rec = gm_puthex(address / 16);
         if (rec < 0)
             return (-1);
         bytes += rec;
@@ -102,20 +79,6 @@ static	ssize_t gm_address(uintptr_t address, int uppercase)
         return (-1);
     bytes += 1;
     return (bytes);
-}
-
-static	ssize_t	gm_pointer_address(uintptr_t address)
-{
-    ssize_t return_of_putstr;
-    ssize_t return_of_puthexnb;
-    
-    if (!address)
-        return (gm_putstr("(nil)"));
-    if ((return_of_putstr = gm_putstr("0x")) < 0)
-        return (-1);
-    if ((return_of_puthexnb = gm_address(address, 0)) < 0)
-        return (-1);
-    return (return_of_putstr + return_of_puthexnb);
 }
 
 ssize_t gm_check_format(va_list args, char c)
@@ -129,22 +92,19 @@ ssize_t gm_check_format(va_list args, char c)
 		bytes = gm_putstr(va_arg(args, char *));
 	else if (c == 'd')
 		bytes = gm_putnbr(va_arg(args, int));
-	else if (c == 'i')
-		bytes = gm_putnbr(va_arg(args, int));
-	else if (c == 'u')
-		bytes = gm_putunbr(va_arg(args, unsigned int));
 	else if (c == 'x')
-		bytes = gm_address(va_arg(args, unsigned int), 0);
-	else if (c == 'X')
-		bytes = gm_address(va_arg(args, unsigned int), 1);
-	else if (c == 'p')
-		bytes = gm_pointer_address((uintptr_t)va_arg(args, void *));
+		bytes = gm_puthex(va_arg(args, unsigned int));
 	else if (c == '%')
 		bytes = gm_putchar('%');
 	else
 	{
-		bytes = gm_putchar('%');
-		bytes += gm_putchar(c);
+		bytes = 0;
+		if (gm_putchar('%') < 0)
+			return (-1);
+		bytes++;
+		if (gm_putchar(c) < 0)
+			return (-1);
+		bytes++;
 	}
 	if (bytes < 0)
 		return (-1);
@@ -191,9 +151,3 @@ int	mini_printf(const char *format, ...)
 	va_end(args);
 	return (bytes);
 }
-// #include <stdio.h>
-// int main(void)
-// {
-// 	// printf("hi %s, %d+%d=%d %c %x%%\n", "dev", 2, 3, 5, '!', 255);
-// 	int x = mini_printf("hi %s, %d+%d=%d %c %x%%\n", "dev", 2, 3, 5, '!', 255);
-// }

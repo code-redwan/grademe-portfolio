@@ -7,7 +7,7 @@ int gm_atoi(const char *str)
 	sign = 1;
 	while ((*str >= 9 && *str <= 13) || *str == 32)
 		str++;
-	while (*str == '-' || *str == '+')
+	if (*str == '-' || *str == '+')
 	{
 		if (*str == '-')
 			sign = -1;

@@ -15,6 +15,8 @@ int *int_range(int from, int to)
 
     len = gm_abs(to - from) + 1;
     range = malloc(sizeof(int) * len);
+	if (!range)
+		return (NULL);
     i = 0;
     while (i < len)
     {

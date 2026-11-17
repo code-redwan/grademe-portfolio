@@ -2,9 +2,7 @@
 
 int	gm_putchar(int c)
 {
-	unsigned char	byte;
-
-	byte =  (unsigned char) c;
-	write(1, &byte, 1);
-	return ((int) byte);
+	if (write(1, &c, 1) < 0)
+		return(-1);
+	return (c);
 }

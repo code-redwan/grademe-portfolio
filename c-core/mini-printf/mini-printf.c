@@ -117,6 +117,8 @@ int	mini_printf(const char *format, ...)
 	ssize_t	bytes;
 	ssize_t	return_check_format;
 
+	if (!format)
+		return (-1);
 	va_start(args, format);
 	bytes = 0;
 	while (*format)
